@@ -5,6 +5,8 @@ from conversion_rate import CONVERSION_RATES
 from currency_utils import get_fullname
 from currency_conversion import perform_currency_conversion
 
+user_font_size = 12  # This should be updated based on user's settings
+
 def open_github():
     webbrowser.open("https://github.com/MoinJulian")
 
@@ -19,6 +21,7 @@ def add_info_label(root):
     info_label = ttk.Label(root, text="Please note that this program is not using an API and therefore can't have "
                                        "up-to-date information.")
     info_label.grid(row=0, column=0, columnspan=2, pady=10)
+    info_label.config(font=("Arial", user_font_size, "bold"))
 
 
 def add_choice_section(root):
