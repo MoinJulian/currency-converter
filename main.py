@@ -1,17 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
 import webbrowser
+from conversion_rate import CONVERSION_RATES
 from currency_utils import get_fullname
 from currency_conversion import perform_currency_conversion
-
-# Constants
-CONVERSION_RATES = {
-    'USD_TO_EUR': 0.92, 'EUR_TO_USD': 1.09, 'USD_TO_GBP': 0.79, 'GBP_TO_USD': 1.27,
-    'USD_TO_YEN': 147.28, 'YEN_TO_USD': 0.0068, 'USD_TO_SEK': 10.44, 'SEK_TO_USD': 0.096,
-    'USD_TO_CAD': 1.35, 'CAD_TO_USD': 0.74, 'USD_TO_AUD': 1.51, 'AUD_TO_USD': 0.66,
-    'USD_TO_CHF': 0.87, 'CHF_TO_USD': 1.16, 'USD_TO_NZD': 1.63, 'NZD_TO_USD': 0.61
-}
-
 
 def open_github():
     webbrowser.open("https://github.com/MoinJulian/School-Programming")
