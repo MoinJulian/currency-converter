@@ -6,7 +6,7 @@ from currency_utils import get_fullname
 from currency_conversion import perform_currency_conversion
 
 def open_github():
-    webbrowser.open("https://github.com/MoinJulian/School-Programming")
+    webbrowser.open("https://github.com/MoinJulian")
 
 
 def create_main_window():
