@@ -47,6 +47,10 @@ def perform_currency_conversion(choice_var, choice_combobox, amount_entry, resul
             google_search_url = f"https://google.com/search?q={amount}+{choice.split('_')[0]}+{result_currency}"
             result_link.config(text="Click here to see the information on Google")
             result_link.bind("<Button-1>", lambda event: webbrowser.open(google_search_url))
+
+            general_info_link = f"https://www.google.com/finance/quote/{choice.split('_')[0]}-{result_currency}"
+            result_link.config(text="Click here to see the general information on Google")
+            result_link.bind("<Button-1>", lambda event: webbrowser.open(general_info_link))
         except ValueError:
             result_label.config(text="Invalid input. Please enter a valid numeric amount.")
     else:

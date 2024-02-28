@@ -44,9 +44,9 @@ def add_amount_section(root):
     return amount_entry
 
 
-def add_convert_button(root, choice_var, choice_combobox, amount_entry, result_label, result_link):
+def add_convert_button(root, choice_var, choice_combobox, amount_entry, result_label, result_link, general_info_link):
     def convert():
-        perform_currency_conversion(choice_var, choice_combobox, amount_entry, result_label, result_link, CONVERSION_RATES)
+        perform_currency_conversion(choice_var, choice_combobox, amount_entry, result_label, result_link, CONVERSION_RATES, general_info_link)
 
     convert_button = ttk.Button(root, text="Convert", command=convert)
     convert_button.grid(row=3, column=0, columnspan=2, pady=10)
@@ -58,12 +58,15 @@ def add_result_labels(root):
 
     result_link = ttk.Label(root, text="")
     result_link.grid(row=5, column=0, columnspan=2, pady=5)
-    return result_label, result_link
+
+    general_info_link = ttk.Label(root, text="")
+    general_info_link.grid(row=6, column=0, columnspan=2, pady=2)
+    return result_label, result_link, general_info_link
 
 
 def add_github_button(root):
     button = ttk.Button(root, text="GitHub", command=open_github)
-    button.grid(row=6, column=0, columnspan=2, pady=20)
+    button.grid(row=7, column=0, columnspan=2, pady=20)
 
 
 def main():
@@ -71,8 +74,8 @@ def main():
     add_info_label(root)
     choice_var, choice_combobox = add_choice_section(root)
     amount_entry = add_amount_section(root)
-    result_label, result_link = add_result_labels(root)
-    add_convert_button(root, choice_var, choice_combobox, amount_entry, result_label, result_link)
+    result_label, result_link, general_info_link = add_result_labels(root)
+    add_convert_button(root, choice_var, choice_combobox, amount_entry, result_label, result_link, general_info_link)
     add_github_button(root)
     root.mainloop()
 
