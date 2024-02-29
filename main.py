@@ -52,9 +52,9 @@ def add_amount_section(root):
     return amount_entry
 
 
-def add_convert_button(root, choice_var, choice_combobox, amount_entry, result_label, result_link, general_info_link):
+def add_convert_button(root, choice_var, choice_combobox, amount_entry, result_label, result_link):
     def convert():
-        perform_currency_conversion(choice_var, choice_combobox, amount_entry, result_label, result_link, CONVERSION_RATES, general_info_link)
+        perform_currency_conversion(choice_var, choice_combobox, amount_entry, result_label, result_link, CONVERSION_RATES)
 
     convert_button = ttk.Button(root, text="Convert", command=convert)
     convert_button.grid(row=3, column=0, columnspan=2, pady=10)
@@ -67,14 +67,12 @@ def add_result_labels(root):
     result_link = ttk.Label(root, text="")
     result_link.grid(row=5, column=0, columnspan=2, pady=5)
 
-    general_info_link = ttk.Label(root, text="")
-    general_info_link.grid(row=6, column=0, columnspan=2, pady=2)
-    return result_label, result_link, general_info_link
+    return result_label, result_link
 
 
 def add_github_button(root):
     button = ttk.Button(root, text="GitHub", command=open_github)
-    button.grid(row=7, column=0, columnspan=2, pady=20)
+    button.grid(row=6, column=0, columnspan=2, pady=20)
 
 def open_waka_time():
     webbrowser.open("https://wakatime.com/@MoinJulian")
@@ -88,7 +86,7 @@ def load_wakatime_badge(root, img_data):
     img = ImageTk.PhotoImage(img)
     panel = tk.Button(root, image=img, text="Open Wakatime Profile", command=open_waka_time)
     panel.image = img
-    panel.grid(row=8, column=0, columnspan=2, pady=10)
+    panel.grid(row=7, column=0, columnspan=2, pady=10)
 
 def main():
     root = create_main_window()
@@ -96,8 +94,8 @@ def main():
     load_wakatime_badge(root, img_data)
     choice_var, choice_combobox = add_choice_section(root)
     amount_entry = add_amount_section(root)
-    result_label, result_link, general_info_link = add_result_labels(root)
-    add_convert_button(root, choice_var, choice_combobox, amount_entry, result_label, result_link, general_info_link)
+    result_label, result_link = add_result_labels(root)
+    add_convert_button(root, choice_var, choice_combobox, amount_entry, result_label, result_link)
     add_github_button(root)
     root.mainloop()
 
