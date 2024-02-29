@@ -16,7 +16,7 @@ def calculate_conversion(amount, exchange_rate):
     return amount * exchange_rate
 
 
-def perform_currency_conversion(choice_var, choice_combobox, amount_entry, result_label, result_link, conversion_rates):
+def perform_currency_conversion(choice_var, choice_combobox, amount_entry, result_label, result_link, conversion_rates, general_info_link):
     """
     Perform currency conversion based on user input and display the result.
 

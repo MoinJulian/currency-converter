@@ -1,11 +1,19 @@
 import tkinter as tk
 from tkinter import ttk
+from PIL import Image, ImageTk
+import requests
+from io import BytesIO
+import cairosvg
 import webbrowser
 from conversion_rate import CONVERSION_RATES
 from currency_utils import get_fullname
 from currency_conversion import perform_currency_conversion
 
 user_font_size = 12  # This should be updated based on user's settings
+wakatime_badge = "https://wakatime.com/badge/github/MoinJulian/currency-converter.svg"
+wakatime_response = requests.get(wakatime_badge)
+print(wakatime_response.status_code)
+img_data = wakatime_response.content
 
 def open_github():
     webbrowser.open("https://github.com/MoinJulian")
@@ -68,10 +76,24 @@ def add_github_button(root):
     button = ttk.Button(root, text="GitHub", command=open_github)
     button.grid(row=7, column=0, columnspan=2, pady=20)
 
+def open_waka_time():
+    webbrowser.open("https://wakatime.com/@MoinJulian")
+
+def load_wakatime_badge(root, img_data):
+    # Convert SVG data to PNG
+    png_data = cairosvg.svg2png(bytestring=img_data)
+
+    # Open the PNG image with PIL
+    img = Image.open(BytesIO(png_data))
+    img = ImageTk.PhotoImage(img)
+    panel = tk.Button(root, image=img, text="Open Wakatime Profile", command=open_waka_time)
+    panel.image = img
+    panel.grid(row=8, column=0, columnspan=2, pady=10)
 
 def main():
     root = create_main_window()
     add_info_label(root)
+    load_wakatime_badge(root, img_data)
     choice_var, choice_combobox = add_choice_section(root)
     amount_entry = add_amount_section(root)
     result_label, result_link, general_info_link = add_result_labels(root)
