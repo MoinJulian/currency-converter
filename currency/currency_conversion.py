@@ -1,5 +1,5 @@
 import webbrowser
-from currency_utils import get_fullname, get_original_key
+from currency.currency_utils import get_fullname, get_original_key
 
 
 def calculate_conversion(amount, exchange_rate):

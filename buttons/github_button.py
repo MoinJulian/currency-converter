@@ -1,5 +1,5 @@
 from tkinter import ttk
-from open_github import open_github
+from utils.open_github import open_github
 
 
 def add_github_button(root):

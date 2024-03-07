@@ -1,4 +1,4 @@
-from wakatime import open_waka_time
+from utils.wakatime import open_waka_time
 import cairosvg
 from PIL import Image, ImageTk
 import tkinter as tk

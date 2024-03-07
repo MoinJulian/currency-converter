@@ -1,8 +1,8 @@
 from tkinter import ttk
 import tkinter as tk
-from conversion_rate import CONVERSION_RATES
+from currency.conversion_rate import CONVERSION_RATES
 
-from currency_utils import get_fullname
+from currency.currency_utils import get_fullname
 
 def add_choice_section(root):
     # Add the currency conversion choice section to the main window.

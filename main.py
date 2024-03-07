@@ -1,12 +1,14 @@
-import tkinter as tk
+import tkinter
 import requests
-from sections.amount_section import add_amount_section
-from sections.choice_section import add_choice_section
 from buttons.convert_button import add_convert_button
 from buttons.github_button import add_github_button
+
 from labels.info_label import add_info_label
-from utils.load_wakatime import load_wakatime_badge
 from labels.result_labels import add_result_labels
+from sections.amount_section import add_amount_section
+from sections.choice_section import add_choice_section
+from utils.load_wakatime import load_wakatime_badge
+
 
 wakatime_badge = "https://wakatime.com/badge/github/MoinJulian/currency-converter.svg"
 wakatime_response = requests.get(wakatime_badge)
@@ -15,7 +17,7 @@ img_data = wakatime_response.content
 
 def create_main_window():
     # Create the main window for the currency converter application.
-    root = tk.Tk()
+    root = tkinter.Tk()
     root.title("Currency Converter")
     return root
 
