@@ -1,12 +1,12 @@
 import tkinter as tk
 import requests
-from amount_section import add_amount_section
-from choice_section import add_choice_section
-from convert_button import add_convert_button
-from github_button import add_github_button
-from info_label import add_info_label
-from load_wakatime import load_wakatime_badge
-from result_labels import add_result_labels
+from sections.amount_section import add_amount_section
+from sections.choice_section import add_choice_section
+from buttons.convert_button import add_convert_button
+from buttons.github_button import add_github_button
+from labels.info_label import add_info_label
+from utils.load_wakatime import load_wakatime_badge
+from labels.result_labels import add_result_labels
 
 wakatime_badge = "https://wakatime.com/badge/github/MoinJulian/currency-converter.svg"
 wakatime_response = requests.get(wakatime_badge)
