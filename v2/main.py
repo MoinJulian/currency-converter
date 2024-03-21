@@ -84,11 +84,18 @@ def convert_cur(amount, fromm, too):
     fromm (str): The source currency.
     too (str): The target currency.
     """
-    if amount == None or fromm.get() == "From" or too.get() == "To":
+    if amount.get() == '' or fromm.get() == "From" or too.get() == "To":
         # TODO: Add implementation
         pass
     else:
-        currency_output.set(round(c.convert(amount, fromm.get(), too.get()), 5))
+        global currency_output, c
+
+        amount_value = amount.get()
+        converted_value = c.convert(amount_value, fromm.get(), too.get())
+        currency_output.set(round(converted_value, 2))
+
+        return currency_output.get()
+    
 
 # Function to validate the input in the currency input field
 def entry_valid(input):
@@ -103,24 +110,41 @@ def entry_valid(input):
     """
     global currency_val1, currency_val2, currency_input
     if input[-1] == "." or input[-1].isdigit():
-        currency_input = input
+        currency_input.set(input)
         if currency_val1.get() != "From" and currency_val2.get() != "To":
             convert_cur(input, currency_val1, currency_val2)
-            return True
         else:
             return True
     elif input == "":
         return True
     else:
         return False
-    
+
+# Initialize an empty list for the history of conversions
+conversion_history = []
+
 # Function to update the currency conversion
 def callback(*args):
     """
     Callback function to update the currency conversion when the selected currencies change.
     """
     global currency_input, currency_val1, currency_val2
-    convert_cur(currency_input, currency_val1, currency_val2)
+    currency_output.set(convert_cur(currency_input, currency_val1, currency_val2))
+
+    print(f"Converted value: {currency_output.get()}")
+
+    output_amount = currency_output.get()
+
+    # Append the conversion details to the history
+    if output_amount != 'None':
+        conversion_history.append({
+            'input_currency': currency_val1.get(),
+            'input_amount': currency_input.get(),
+            'output_currency': currency_val2.get(),
+            'output_amount': currency_output.get()
+        })
+
+    print(conversion_history)
 
 # Create a label widget for the title
 label = Label(root, text='Currency Converter', font="Helvetica 40 bold")
