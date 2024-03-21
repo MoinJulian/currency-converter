@@ -126,22 +126,30 @@ def callback(*args):
 label = Label(root, text='Currency Converter', font="Helvetica 40 bold")
 label.pack()
 
+# Create a frame for the listbox and its label
+listbox_frame = Frame(root)
+listbox_frame.pack(side=RIGHT)
+
+# Create a label widget for the listbox heading
+listbox_label = Label(listbox_frame, text='Names for Currencies with abbreviations', font="Helvetica 15 bold")
+listbox_label.pack()
+
 # Create a scrollbar for the listbox
-scrollbar = Scrollbar(root)
+scrollbar = Scrollbar(listbox_frame)
 scrollbar.pack(side=RIGHT, fill=Y)
 
 # Create a listbox widget to display the currencies
-listbox = Listbox(root, yscrollcommand=scrollbar.set)
+listbox = Listbox(listbox_frame, yscrollcommand=scrollbar.set)
 for currency in currencies_names.values():
     listbox.insert(END, currency)
-listbox.pack(side=RIGHT, fill=BOTH)
+listbox.pack(fill=BOTH)
 
 # Configure the scrollbar to scroll the listbox
 scrollbar.config(command=listbox.yview)
 
 # Create an entry widget for the currency input
 amount = Entry(root, textvariable=currency_input, font="Geneva 30 bold", justify=CENTER)
-amount.pack(padx=10)
+amount.pack(padx=10, pady=15)
 
 # Register the entry_valid function as a validation command for the amount entry widget
 reg = root.register(entry_valid)
