@@ -1,12 +1,12 @@
 from tkinter import *
 from currency_converter import CurrencyConverter
 
-from v2.callback import callback
-from v2.entry_valid import entry_valid
-
 # Create the root window
 root = Tk()
 root.title("Currency Converter")
+
+# Currencies to convert
+currencies = ["EUR", "USD", "GBP", "CAD", "JPY", "CNY", "RUB", "AUD", "NZD", "BRL", "INR", "ZAR", "SEK", "CHF", "HKD"]
 
 # Create StringVar variables to store the selected currencies
 currency_val1 = StringVar(root)
@@ -27,6 +27,54 @@ root.minsize(width=300, height=300)
 
 running = True
 
+# Function to convert the currency
+def convert_cur(amount, fromm, too):
+    """
+    Convert the currency based on the given amount, source currency, and target currency.
+
+    Parameters:
+    amount (float): The amount of currency to convert.
+    fromm (str): The source currency.
+    too (str): The target currency.
+    """
+    if amount == None or fromm.get() == "From" or too.get() == "To":
+        # TODO: Add implementation
+        pass
+    else:
+        currecy_output.set(round(c.convert(amount, fromm.get(), too.get()), 5))
+
+# Function to validate the input in the currency input field
+def entry_valid(input):
+    """
+    Validate the input in the currency input field.
+
+    Parameters:
+    input (str): The input value.
+
+    Returns:
+    bool: True if the input is valid, False otherwise.
+    """
+    global currency_val1, currency_val2, currecyinput
+    if input[-1] == "." or input[-1].isdigit():
+        currecyinput = input
+        if currency_val1.get() != "From" and currency_val2.get() != "To":
+            convert_cur(input, currency_val1, currency_val2)
+            return True
+        else:
+            return True
+    elif input == "":
+        return True
+    else:
+        return False
+    
+# Function to update the currency conversion
+def callback(*args):
+    """
+    Callback function to update the currency conversion when the selected currencies change.
+    """
+    global currecyinput, currency_val1, currency_val2
+    convert_cur(currecyinput, currency_val1, currency_val2)
+
 # Create a label widget for the title
 label = Label(root, text='Currency Converter', font="Helvetica 40 bold")
 label.pack()
@@ -40,12 +88,12 @@ reg = root.register(entry_valid)
 amount.config(validate="key", validatecommand=(reg, '%P'))
 
 # Create an option menu widget for the source currency selection
-currency_from = OptionMenu(root, currency_val1, *["EUR", "USD", "GBP", "CAD", "JPY", "CNY", "RUB"])
+currency_from = OptionMenu(root, currency_val1, *currencies)
 currency_from.config(width=38, height=2, font="Helvetica 15 bold", justify=CENTER)
 currency_from.pack()
 
 # Create an option menu widget for the target currency selection
-currency_to = OptionMenu(root, currency_val2, *["EUR", "USD", "GBP", "CAD", "JPY", "CNY", "RUB"])
+currency_to = OptionMenu(root, currency_val2, *currencies)
 currency_to.config(width=38, height=2, font="Helvetica 15 bold", justify=CENTER)
 currency_to.pack()
 
