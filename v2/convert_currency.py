@@ -1,4 +1,4 @@
-from main import c, currecyoutput
+from main import c, currecy_output
 
 def convert_cur(amount, fromm, too):
     """
@@ -13,4 +13,4 @@ def convert_cur(amount, fromm, too):
         # TODO: Add implementation
         pass
     else:
-        currecyoutput.set(round(c.convert(amount, fromm.get(), too.get()), 5))
+        currecy_output.set(round(c.convert(amount, fromm.get(), too.get()), 5))
