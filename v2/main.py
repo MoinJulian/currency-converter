@@ -204,6 +204,15 @@ def open_history():
     Open a new window with the conversion history.
     """
 
+    # Function to clear the conversion history
+    def clear_history():
+        """
+        Clear the conversion history.
+        """
+        global conversion_history
+        conversion_history = []
+        history_listbox.delete(0, END)
+
     history_window = Toplevel(root)
     history_window.title("Conversion History")
     history_window.geometry("500x500")
@@ -211,6 +220,10 @@ def open_history():
     # Create a label widget for the title of the history window
     history_label = Label(history_window, text='Conversion History', font="Helvetica 20 bold")
     history_label.pack()
+
+    # Add clear history button
+    clear_history_button = Button(history_window, text="Clear History", command=clear_history, font="Helvetica 15 bold")
+    clear_history_button.pack(pady=10)
 
     # Create a frame for the history listbox and its label
     history_frame = Frame(history_window)
