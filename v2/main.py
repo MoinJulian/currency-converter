@@ -16,13 +16,53 @@ c = CurrencyConverter()
 
 # Currencies to convert
 currencies = list(c.currencies)
-
-currencies = list(c.currencies)
 excluded_currencies = ["ROL", "CYP", "TRL", "LVL", "MTL"]
 
 for currency in excluded_currencies:
     if currency in currencies:
         currencies.remove(currency)
+
+currencies.sort()
+
+currencies_names = {
+    "AUD": "Australian Dollar (AUD)",
+    "BGN": "Bulgarian Lev (BGN)",
+    "BRL": "Brazilian Real (BRL)",
+    "CAD": "Canadian Dollar (CAD)",
+    "CHF": "Swiss Franc (CHF)",
+    "CNY": "Chinese Yuan (CNY)",
+    "CZK": "Czech Koruna (CZK)",
+    "DKK": "Danish Krone (DKK)",
+    "EEK": "Estonian Kroon (EEK)",
+    "EUR": "Euro (EUR)",
+    "GBP": "British Pound (GBP)",
+    "HKD": "Hong Kong Dollar (HKD)",
+    "HRK": "Croatian Kuna (HRK)",
+    "HUF": "Hungarian Forint (HUF)",
+    "IDR": "Indonesian Rupiah (IDR)",
+    "ILS": "Israeli New Shekel (ILS)",
+    "INR": "Indian Rupee (INR)",
+    "ISK": "Icelandic Krona (ISK)",
+    "JPY": "Japanese Yen (JPY)",
+    "KRW": "South Korean Won (KRW)",
+    "LTL": "Lithuanian Litas (LTL)",
+    "MXM": "Mexican Peso (MXM)",
+    "MYR": "Malaysian Ringgit (MYR)",
+    "NOK": "Norwegian Krone (NOK)",
+    "NZD": "New Zealand Dollar (NZD)",
+    "PHP": "Philippine Peso (PHP)",
+    "PLN": "Polish Zloty (PLN)",
+    "RON": "Romanian Leu (RON)",
+    "RUB": "Russian Ruble (RUB)",
+    "SEK": "Swedish Krona (SEK)",
+    "SGD": "Singapore Dollar (SGD)",
+    "SIT": "Slovenian Tolar (SIT)",
+    "SKK": "Slovak Koruna (SKK)",
+    "THB": "Thai Baht (THB)",
+    "TRY": "Turkish Lira (TRY)",
+    "USD": "US Dollar (USD)",
+    "ZAR": "South African Rand (ZAR)"
+}
 
 # Create StringVar variables to store the input and output currency values
 currency_input = StringVar(root)
@@ -85,6 +125,19 @@ def callback(*args):
 # Create a label widget for the title
 label = Label(root, text='Currency Converter', font="Helvetica 40 bold")
 label.pack()
+
+# Create a scrollbar for the listbox
+scrollbar = Scrollbar(root)
+scrollbar.pack(side=RIGHT, fill=Y)
+
+# Create a listbox widget to display the currencies
+listbox = Listbox(root, yscrollcommand=scrollbar.set)
+for currency in currencies_names.values():
+    listbox.insert(END, currency)
+listbox.pack(side=RIGHT, fill=BOTH)
+
+# Configure the scrollbar to scroll the listbox
+scrollbar.config(command=listbox.yview)
 
 # Create an entry widget for the currency input
 amount = Entry(root, textvariable=currency_input, font="Geneva 30 bold", justify=CENTER)
