@@ -197,5 +197,45 @@ currency_val2.trace('w', callback)
 output = Entry(root, textvariable=currency_output, font="Geneva 30 bold", justify=CENTER)
 output.pack()
 
+
+# Create a button widget to open a new window with the conversion history
+def open_history():
+    """
+    Open a new window with the conversion history.
+    """
+
+    history_window = Toplevel(root)
+    history_window.title("Conversion History")
+    history_window.geometry("500x500")
+
+    # Create a label widget for the title of the history window
+    history_label = Label(history_window, text='Conversion History', font="Helvetica 20 bold")
+    history_label.pack()
+
+    # Create a frame for the history listbox and its label
+    history_frame = Frame(history_window)
+    history_frame.pack(side=RIGHT, fill=BOTH, expand=True)
+
+    # Create a label widget for the history listbox heading
+    history_listbox_label = Label(history_frame, text='Conversion History', font="Helvetica 15 bold")
+    history_listbox_label.pack()
+
+    # Create a scrollbar for the history listbox
+    history_scrollbar = Scrollbar(history_frame)
+    history_scrollbar.pack(side=RIGHT, fill=Y)
+
+    # Create a listbox widget to display the conversion history
+    history_listbox = Listbox(history_frame, yscrollcommand=history_scrollbar.set)
+    for conversion in conversion_history:
+        history_listbox.insert(END, f"{conversion['input_currency']} {conversion['input_amount']} = {conversion['output_currency']} {conversion['output_amount']}")
+    history_listbox.pack(fill=BOTH)
+
+    # Configure the scrollbar to scroll the history listbox
+    history_scrollbar.config(command=history_listbox.yview)
+
+# Create a button widget to open the conversion history window
+history_button = Button(root, text="Conversion History", command=open_history, font="Helvetica 15 bold")
+history_button.pack(pady=10)
+
 # Start the main event loop
 root.mainloop()
