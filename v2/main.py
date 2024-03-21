@@ -68,6 +68,9 @@ currencies_names = {
 currency_input = StringVar(root)
 currency_output = StringVar(root)
 
+# Output number of decimal places
+decimal_places = 2
+
 # Set the title and size of the root window
 root.title("Currency Converter")
 root.minsize(width=300, height=300)
@@ -92,7 +95,7 @@ def convert_cur(amount, fromm, too):
 
         amount_value = amount.get()
         converted_value = c.convert(amount_value, fromm.get(), too.get())
-        currency_output.set(round(converted_value, 2))
+        currency_output.set(round(converted_value, decimal_places))
 
         return currency_output.get()
     
@@ -147,7 +150,9 @@ def callback(*args):
     print(conversion_history)
 
 # Create a label widget for the title
-label = Label(root, text='Currency Converter', font="Helvetica 40 bold")
+FONT_STYLE = "Helvetica 15 bold"
+
+label = Label(root, text='Currency Converter', font=FONT_STYLE)
 label.pack()
 
 # Create a frame for the listbox and its label
@@ -155,7 +160,7 @@ listbox_frame = Frame(root)
 listbox_frame.pack(side=RIGHT)
 
 # Create a label widget for the listbox heading
-listbox_label = Label(listbox_frame, text='Names for Currencies with abbreviations', font="Helvetica 15 bold")
+listbox_label = Label(listbox_frame, text='Names for Currencies with abbreviations', font=FONT_STYLE)
 listbox_label.pack()
 
 # Create a scrollbar for the listbox
@@ -171,6 +176,50 @@ listbox.pack(fill=BOTH)
 # Configure the scrollbar to scroll the listbox
 scrollbar.config(command=listbox.yview)
 
+# Create a input for the decimal places
+decimal_places_label = Label(root, text='Decimal Places (max. 6)', font=FONT_STYLE)
+decimal_places_label.pack()
+
+# Create a StringVar for the label text
+decimal_places_text = StringVar()
+decimal_places_text.set(f"Current Decimal Places: {decimal_places}")
+
+# Function to update the decimal places
+def update_decimal_places():
+    """
+    Update the decimal places based on the input in the decimal places entry widget.
+    """
+    global decimal_places
+    if decimal_places_entry.get() == "":
+        decimal_places = 2
+        print(f"Decimal places: {decimal_places}")
+        decimal_places_text.set(f"Current Decimal Places: {decimal_places}")
+        return
+    
+    if int(decimal_places_entry.get()) > 6:
+        decimal_places = 6
+        print(f"Decimal places: {decimal_places}")
+        decimal_places_text.set(f"Current Decimal Places: {decimal_places}")
+        return
+
+    decimal_places = int(decimal_places_entry.get())
+    print(f"Decimal places: {decimal_places}")
+    decimal_places_text.set(f"Current Decimal Places: {decimal_places}")
+
+    callback()
+
+# Create a button widget to update the decimal places
+update_button = Button(root, text="Update Decimal Places", command=update_decimal_places, font=FONT_STYLE)
+update_button.pack()
+
+# Create an entry widget for the decimal places
+decimal_places_entry = Entry(root, textvariable=decimal_places, font="Geneva 15 bold", justify=CENTER)
+decimal_places_entry.pack()
+
+# Create a label widget for the current decimal places
+current_decimal_places_label = Label(root, textvariable=decimal_places_text, font=FONT_STYLE)
+current_decimal_places_label.pack()
+
 # Create an entry widget for the currency input
 amount = Entry(root, textvariable=currency_input, font="Geneva 30 bold", justify=CENTER)
 amount.pack(padx=10, pady=15)
@@ -181,12 +230,12 @@ amount.config(validate="key", validatecommand=(reg, '%P'))
 
 # Create an option menu widget for the source currency selection
 currency_from = OptionMenu(root, currency_val1, *currencies)
-currency_from.config(width=38, height=2, font="Helvetica 15 bold", justify=CENTER)
+currency_from.config(width=38, height=2, font=FONT_STYLE, justify=CENTER)
 currency_from.pack()
 
 # Create an option menu widget for the target currency selection
 currency_to = OptionMenu(root, currency_val2, *currencies)
-currency_to.config(width=38, height=2, font="Helvetica 15 bold", justify=CENTER)
+currency_to.config(width=38, height=2, font=FONT_STYLE, justify=CENTER)
 currency_to.pack()
 
 # Bind the callback function to the changes in the source and target currency selections
@@ -222,7 +271,7 @@ def open_history():
     history_label.pack()
 
     # Add clear history button
-    clear_history_button = Button(history_window, text="Clear History", command=clear_history, font="Helvetica 15 bold")
+    clear_history_button = Button(history_window, text="Clear History", command=clear_history, font=FONT_STYLE)
     clear_history_button.pack(pady=10)
 
     # Create a frame for the history listbox and its label
@@ -230,7 +279,7 @@ def open_history():
     history_frame.pack(side=RIGHT, fill=BOTH, expand=True)
 
     # Create a label widget for the history listbox heading
-    history_listbox_label = Label(history_frame, text='Conversion History', font="Helvetica 15 bold")
+    history_listbox_label = Label(history_frame, text='Conversion History', font=FONT_STYLE)
     history_listbox_label.pack()
 
     # Create a scrollbar for the history listbox
@@ -247,7 +296,7 @@ def open_history():
     history_scrollbar.config(command=history_listbox.yview)
 
 # Create a button widget to open the conversion history window
-history_button = Button(root, text="Conversion History", command=open_history, font="Helvetica 15 bold")
+history_button = Button(root, text="Conversion History", command=open_history, font=FONT_STYLE)
 history_button.pack(pady=10)
 
 # Start the main event loop
