@@ -1,5 +1,6 @@
 from tkinter import *
 from currency_converter import CurrencyConverter
+import tkinter.messagebox as messagebox
 
 # Create the root window
 root = Tk()
@@ -88,17 +89,15 @@ def convert_cur(amount, fromm, too):
     too (str): The target currency.
     """
     if amount.get() == '' or fromm.get() == "From" or too.get() == "To":
-        # TODO: Add implementation
-        pass
+        return
     else:
-        global currency_output, c
-
-        amount_value = amount.get()
-        converted_value = c.convert(amount_value, fromm.get(), too.get())
-        currency_output.set(round(converted_value, decimal_places))
-
-        return currency_output.get()
-    
+        try:
+            amount_value = amount.get()
+            converted_value = c.convert(amount_value, fromm.get(), too.get())
+            currency_output.set(round(converted_value, decimal_places))
+            return currency_output.get()
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
 
 # Function to validate the input in the currency input field
 def entry_valid(input):
@@ -139,7 +138,7 @@ def callback(*args):
     output_amount = currency_output.get()
 
     # Append the conversion details to the history
-    if output_amount != 'None':
+    if output_amount is not None:
         conversion_history.append({
             'input_currency': currency_val1.get(),
             'input_amount': currency_input.get(),
