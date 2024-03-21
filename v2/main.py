@@ -75,7 +75,7 @@ label.pack()
 
 # Create an entry widget for the currency input
 amount = Entry(root, textvariable=currecyinput, font="Geneva 30 bold", justify=CENTER)
-amount.pack()
+amount.pack(padx=10)
 
 # Register the entry_valid function as a validation command for the amount entry widget
 reg = root.register(entry_valid)
