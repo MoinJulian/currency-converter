@@ -17,7 +17,7 @@ c = CurrencyConverter()
 
 # Currencies to convert
 currencies = list(c.currencies)
-excluded_currencies = ["ROL", "CYP", "TRL", "LVL", "MTL"]
+excluded_currencies = ["ROL", "CYP", "TRL", "LVL", "MTL", "HRK"]
 
 for currency in excluded_currencies:
     if currency in currencies:
@@ -38,7 +38,6 @@ currencies_names = {
     "EUR": "Euro (EUR)",
     "GBP": "British Pound (GBP)",
     "HKD": "Hong Kong Dollar (HKD)",
-    "HRK": "Croatian Kuna (HRK)",
     "HUF": "Hungarian Forint (HUF)",
     "IDR": "Indonesian Rupiah (IDR)",
     "ILS": "Israeli New Shekel (ILS)",
@@ -300,6 +299,17 @@ def open_history():
 # Create a button widget to open the conversion history window
 history_button = Button(root, text="Conversion History", command=open_history, font=FONT_STYLE)
 history_button.pack(pady=10)
+
+# Function to close the application
+def on_closing():
+    if messagebox.askokcancel("Quit", "Do you really want to quit?"):
+        root.destroy()
+
+# Create a button widget to close the application
+close_button = Button(root, text="Close", command=on_closing, font=FONT_STYLE)
+
+# Ask for confirmation before closing the application
+close_button.pack(pady=10)
 
 # Start the main event loop
 root.mainloop()
