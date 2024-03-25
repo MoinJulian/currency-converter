@@ -135,15 +135,18 @@ def callback(*args):
 
     print(f"Converted value: {currency_output.get()}")
 
+    input_amount = currency_input.get()
+    input_currency = currency_val1.get()
     output_amount = currency_output.get()
+    output_currency = currency_val2.get()
 
     # Append the conversion details to the history
-    if output_amount is not None:
+    if output_amount != 'None' and output_currency != 'To':
         conversion_history.append({
-            'input_currency': currency_val1.get(),
-            'input_amount': currency_input.get(),
-            'output_currency': currency_val2.get(),
-            'output_amount': currency_output.get()
+            'input_currency': input_currency,
+            'input_amount': input_amount,
+            'output_currency': output_currency,
+            'output_amount': output_amount
         })
 
     print(conversion_history)
