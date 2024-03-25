@@ -162,11 +162,11 @@ listbox_frame.pack(side=RIGHT)
 
 # Create a label widget for the listbox heading
 listbox_label = Label(listbox_frame, text='Names for Currencies with abbreviations', font=FONT_STYLE)
-listbox_label.pack()
+listbox_label.pack(padx=10)
 
 # Create a scrollbar for the listbox
 scrollbar = Scrollbar(listbox_frame)
-scrollbar.pack(side=RIGHT, fill=Y)
+scrollbar.pack(side=RIGHT, fill=Y, padx=10)
 
 # Create a listbox widget to display the currencies
 listbox = Listbox(listbox_frame, yscrollcommand=scrollbar.set)
@@ -300,6 +300,21 @@ def open_history():
 history_button = Button(root, text="Conversion History", command=open_history, font=FONT_STYLE)
 history_button.pack(pady=10)
 
+import webbrowser
+
+# GitHub repository link
+github_link = "https://github.com/MoinJulian/currency-converter"
+
+def open_github():
+    """
+    Open the GitHub repository link in the default web browser.
+    """
+    webbrowser.open(github_link)
+
+# Create a label widget for the GitHub repository link
+github_button = Button(root, text="GitHub repository",command=open_github, font=FONT_STYLE)
+github_button.pack(pady=10)
+
 # Function to close the application
 def on_closing():
     if messagebox.askokcancel("Quit", "Do you really want to quit?"):
@@ -307,8 +322,6 @@ def on_closing():
 
 # Create a button widget to close the application
 close_button = Button(root, text="Close", command=on_closing, font=FONT_STYLE)
-
-# Ask for confirmation before closing the application
 close_button.pack(pady=10)
 
 # Start the main event loop
